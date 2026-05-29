@@ -45,17 +45,17 @@ export default function Home() {
 
           </div>
          {user ? (
-          <link href = "/profile">
+          <Link href = "/profile">
             <button className = "w-12 h-12 rounded-full bg-[#d9d9d9] text-black text-xl font-bold flex items-center justify-center hover:scale-110 transition">
               👤
             </button>
-          </link>
+          </Link>
          ) : (
-          <link href = "/login">
+          <Link href = "/login">
             <button className = "bg-[#d9d9d9] text-black px-5 py-2 rounded-full font-semibold hover:scale-105 transition">
               Login
             </button>
-          </link>
+          </Link>
          )}
 
         </div>
