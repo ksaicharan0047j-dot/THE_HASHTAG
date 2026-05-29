@@ -1,4 +1,15 @@
+"use client";
+import { useEffect, useState} from "react";
+import Link from "next/link";
+import { supabase } from "../lib/supabase";
 export default function Home() {
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user);
+    });
+  }, []);
   return (
     <main className="min-h-screen bg-[#0f0f0f] text-white overflow-x-hidden">
 
@@ -33,12 +44,19 @@ export default function Home() {
             </button>
 
           </div>
-
-          <button className="bg-[#d9d9d9] text-black px-5 py-2 rounded-full text-sm font-semibold hover:scale-105 transition duration-300">
-
-            Login
-
-          </button>
+         {user ? (
+          <link href = "/profile">
+            <button className = "w-12 h-12 rounded-full bg-[#d9d9d9] text-black text-xl font-bold flex items-center justify-center hover:scale-110 transition">
+              👤
+            </button>
+          </link>
+         ) : (
+          <link href = "/login">
+            <button className = "bg-[#d9d9d9] text-black px-5 py-2 rounded-full font-semibold hover:scale-105 transition">
+              Login
+            </button>
+          </link>
+         )}
 
         </div>
 
@@ -98,7 +116,7 @@ export default function Home() {
 
           {/* RIGHT SECTION */}
 
-          <div className="bg-[#1a1a1a] relative overflow-hidden flex items-center justify-center px-8 py-20">
+          <div className="bg-[#1a1a1a] relative overflow-hidden flex items-center justify-center px-6 md:px-8 py-12 md:py-12">
 
             {/* GLOW */}
 
@@ -108,7 +126,7 @@ export default function Home() {
 
             {/* FLOATING CATEGORY UI */}
 
-            <div className = "relative w-full max-w-2xl h-162.5">
+            <div className = "hidden md:block relative w-full max-w-2xl h-162.5">
                 {/*Internships*/}
                 <button className = "absolute top-12 left-12 w-60 h-60 rounded-full bg-[#242424] border border-white/10 flex items-center justify-center text-center shadow-[0_0_80px_rgba(255,255,255,0.14)] transition duration-500">
                     <div>
@@ -143,6 +161,16 @@ export default function Home() {
                 <button className = "absolute bottom-12 right-10 bg-[#202020] border border-white/10 rounded-full px-7 py-5 hover:scale-105 hover:bg-[#2a2a2a] transition duration-500">
                     <h3 className = "text-xl font-semibold">Meetups</h3>
                 </button>
+            </div>
+            {/*MOBILE CATEGORY UI*/}
+            <div className = "md:hidden w-full flex flex-col gap-5">
+              <button className = "w-full h-28 rounded-full bg-[#242424] border border-white/10 text-3xl font-black shadow-[0_0_40px_rgba(255,255,255,0.08)]">Internships</button>
+              <button className = "w-full h-28 rounded-full bg-[#242424] border border-white/10 text-3xl font-black shadow-[0_0_50px_rgba(255,255,255,0.12)]"> Gaming</button>
+              <button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Workshops</button>
+              <button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Hackathons</button>
+              <button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Competitions</button>
+              <button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Communities</button>
+              <button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Meetups</button> 
             </div>
 
           </div>
