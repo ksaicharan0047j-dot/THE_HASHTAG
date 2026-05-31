@@ -30,7 +30,7 @@ export default function LoginPage(){
             return;
         }
         alert("Login Successful👍")
-        router.push("/");
+        router.push("/profile");
     }
     return (
         <main className = "min-h-screen flex items-center justify-center bg-[#111] text-white">
