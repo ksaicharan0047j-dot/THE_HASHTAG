@@ -10,6 +10,7 @@ export default function LoginPage(){
     const [showOtp, setShowOtp] = useState(false);
 
     async function sendOtp() {
+        alert("sendOtp started");
         const { error } = await supabase.auth.signInWithOtp({ email });
         if(error) {
             alert(error.message);
@@ -44,7 +45,7 @@ export default function LoginPage(){
                 />
                 {!showOtp ? (
                     <button 
-                    onClick = {sendOtp}
+                    onClick = {() => {alert("Button clicked");sendOtp();}}
                     className = "w-full bg-white text-black py-4 rounded-xl font-bold">
                         Send OTP
                     </button>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { supabase } from "../lib/supabase";
 export default function Home() {
   const [user, setUser] = useState<any>(null);
+  const [menuOpen, setMenuOpen] = useState(false);  
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -19,11 +20,17 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-6 md:px-10 py-5 flex items-center justify-between">
 
-          <h1 className="text-2xl md:text-3xl font-black tracking-tight">
+          <div className = "flex items-center gap-4">
+            <button
+            onClick = {() => setMenuOpen(true)}
+            className = "md:hidden text-2xl text-white">≡</button>
+            <h1 className="text-2xl md:text-3xl font-black tracking-tight">
 
             THE #
 
           </h1>
+
+          </div>
 
           <div className="hidden md:flex items-center gap-10 text-sm text-[#8a8a8a]">
 
@@ -43,6 +50,10 @@ export default function Home() {
               Workshops
             </button>
 
+            <button className = "hover:text-white transition">
+              Messages
+            </button>
+
           </div>
          {user ? (
           <Link href = "/profile">
@@ -59,6 +70,28 @@ export default function Home() {
          )}
 
         </div>
+
+        {menuOpen && (
+          <>
+          {/*Overlay*/}
+          <div className="fixed inset-0 bg-black/60 z-40 md:hidden" onClick = {() => setMenuOpen(false)}/>
+          {/*Drawer*/}
+          <div className = "fixed top-0 left-0 h-screen w-72 bg-[#0f0f0f] border-r border-white/10 z-50 md:hidden">
+          <div className="flex items-center justify-between p-6 border-b border-white/10">
+            <h2 className = "text-xl font-black">THE #</h2>
+            <button onClick = {() => setMenuOpen(false)} className = "text-xl">X</button>
+          </div>
+          <div className = "flex flex-col p-6 gap-6 text-[#d9d9d9]">
+            <Link href = "/">Explore</Link>
+            <Link href = "/events">Events</Link>
+            <Link href = "/internships">Internships</Link>
+            <Link href = "/workshops">Workshops</Link>
+            <Link href = "/messages">Messages</Link>
+            <Link href = "/profile">Profile</Link>
+          </div>
+          </div>
+          </>
+        )}
 
       </nav>
 
