@@ -2,14 +2,31 @@
 import { useEffect, useState} from "react";
 import Link from "next/link";
 import { supabase } from "../lib/supabase";
+import { isAbsolute } from "path";
 export default function Home() {
   const [user, setUser] = useState<any>(null);
   const [menuOpen, setMenuOpen] = useState(false);  
+  const [isAuthorizer, setIsAuthorizer] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user);
-    });
+      async function loadUser() {
+        const { data } = await supabase.auth.getUser();
+
+        setUser(data.user);
+
+        if(data.user) {
+          const { data: authorizer } = await supabase
+          .from("authorizers")
+          .select("*")
+          .eq("email", data.user.email)
+          .single();
+
+          if(authorizer){
+            setIsAuthorizer(true);
+          }
+        }
+      }
+      loadUser();
   }, []);
   return (
     <main className="min-h-screen bg-[#0f0f0f] text-white overflow-x-hidden">
@@ -56,10 +73,18 @@ export default function Home() {
 
           </div>
          {user ? (
-          <Link href = "/profile">
-            <button className = "w-12 h-12 rounded-full bg-[#d9d9d9] text-black text-xl font-bold flex items-center justify-center hover:scale-110 transition">
-              👤
-            </button>
+          <Link href="/profile">
+            <div className="relative w-12 h-12">
+
+              <button className="w-12 h-12 rounded-full bg-[#d9d9d9] text-black text-xl font-bold flex items-center justify-center hover:scale-110 transition">
+                👤
+              </button>
+
+              {isAuthorizer && (
+                <div className="absolute bottom-0 right-0 translate-x-1 translate-y-1 w-2.5 h-2.5 bg-yellow-400 rounded-full border border-[#0f0f0f]" />
+              )}
+
+            </div>
           </Link>
          ) : (
           <Link href = "/login">
