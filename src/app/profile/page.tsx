@@ -16,6 +16,9 @@ export default function ProfilePage() {
     const [instagram, setInstagram] = useState("");
     const [profileExists, setProfileExists] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [userEmail, setUserEmail] = useState("");
+    const [memberSince, setMemberSince] = useState("");
+    const [isAuthorizer, setIsAuthorizer] = useState(false);
 
     async function checkProfile() {
         const{ data: {user},} = await supabase.auth.getUser();
@@ -24,6 +27,19 @@ export default function ProfilePage() {
             router.push("/login");
             return;
         }
+
+        const { data: authorizer } = await supabase
+            .from("authorizers")
+            .select("*")
+            .eq("email", user.email)
+            .single();
+
+            if(authorizer){
+                console.log("AUTHORIZER FOUND");
+            }
+            if(authorizer){
+                setIsAuthorizer(true);
+            }
         const { data } = await supabase
             .from("profiles")
             .select("*")
@@ -38,6 +54,8 @@ export default function ProfilePage() {
             setGender(data.gender);
             setCollege(data.college);
             setInstagram(data.instagram || "");
+            setUserEmail(user.email || "");
+            setMemberSince(new Date(data.created_at).toLocaleDateString());
         }
         setLoading(false);
     }
@@ -64,8 +82,13 @@ export default function ProfilePage() {
                             <h1 className = "text-4xl font-black">
                                 {fullName}
                             </h1>
+                            {isAuthorizer && (
+                                <p className = "text-yellow-400 font-semibold mt-2">🟡 Authorizer</p>
+                            )}
                             <p className = "text-[#8a8a8a] mt-2">{role}</p>
                             <p className = "text-[#8a8a8a]">{college}</p>
+                            <p className = "text-[#8a8a8a] mt-2">{userEmail}</p>
+                            <p className = "text-[#6a6a6a] text-sm mt-1">Member since {memberSince}</p>
                             {instagram && (
                                 <p className = "mt-4">@{instagram}</p>
                             )}
@@ -75,9 +98,10 @@ export default function ProfilePage() {
                         <div className = "bg-[#1a1a1a] border border-white/10 rounded-3xl p-6">
                             ❤️ Wishlist
                         </div>
-                        <div className = "bg-[#1a1a1a] border border-white/10 rounded-3xl p-6">Registered Events</div>
+                        <div className = "bg-[#1a1a1a] border border-wh ite/10 rounded-3xl p-6">Registered Events</div>
                         <div className = "bg-[#1a1a1a] border border-white/10 rounded-3xl p-6">Recently Viewed</div>
                         <div className = "bg-[#1a1a1a] border border-white/10 rounded-3xl p-6">Certificates</div>
+                        <button onClick = {logout} className = "w-full mt-6 bg-[#1a1a1a] border border-red-500/30 text-red-400 py-4 rounded-3xl hover:bg-red-500/10 transition">Logout</button>
                     </div>
                 </div>
             </main>
@@ -166,5 +190,9 @@ export default function ProfilePage() {
                                     <button onClick = {saveProfile} className = "w-full bg-white text-black py-4 rounded-full font-semibold hover:opacity-90 transition">Complete Profile</button>
                 </div>
             </div>
-           </main>);
+        </main>);
+    async function logout(){
+        await supabase.auth.signOut();
+        router.push("/");
+    }
 }

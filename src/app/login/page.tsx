@@ -9,10 +9,12 @@ export default function LoginPage(){
     const [otp, setOtp] = useState("");
     const [showOtp, setShowOtp] = useState(false);
 
-    async function sendOtp() {
-        alert("sendOtp started");
-        const { error } = await supabase.auth.signInWithOtp({ email });
-        if(error) {
+
+    async function loginStepOne() {
+        const { error } = await supabase.auth.signInWithOtp({
+            email,
+        });
+        if(error){
             alert(error.message);
             return;
         }
@@ -44,25 +46,28 @@ export default function LoginPage(){
                 onChange = {(e) => setEmail(e.target.value)}
                 />
                 {!showOtp ? (
-                    <button 
-                    onClick = {() => {alert("Button clicked");sendOtp();}}
-                    className = "w-full bg-white text-black py-4 rounded-xl font-bold">
-                        Send OTP
+                    <button
+                        onClick={loginStepOne}
+                        className="w-full bg-white text-black py-4 rounded-xl font-bold"
+                    >
+                        Login
                     </button>
                 ) : (
                     <>
-                    <input 
-                    type = "text"
-                    placeholder = "ENTER OTP"
-                    className = "w-full p-4 rounded-xl bg-[#222] mt-4"
-                    value = {otp}
-                    onChange = {(e) => setOtp(e.target.value)}
-                    />
-                    <button 
-                    onClick = {verifyOTP}
-                    className = "w-full bg-white text-black py-4 rounded-xl font-bold">
-                        Verify OTP
-                    </button>
+                        <input
+                            type="text"
+                            placeholder="ENTER OTP"
+                            className="w-full p-4 rounded-xl bg-[#222] mt-4"
+                            value={otp}
+                            onChange={(e) => setOtp(e.target.value)}
+                        />
+
+                        <button
+                            onClick={verifyOTP}
+                            className="w-full bg-white text-black py-4 rounded-xl font-bold"
+                        >
+                            Verify OTP
+                        </button>
                     </>
                 )}
             </div>
