@@ -2,7 +2,7 @@
 import { useEffect, useState} from "react";
 import Link from "next/link";
 import { supabase } from "../lib/supabase";
-import { isAbsolute } from "path";
+
 export default function Home() {
   const [user, setUser] = useState<any>(null);
   const [menuOpen, setMenuOpen] = useState(false);  
@@ -50,27 +50,31 @@ export default function Home() {
           </div>
 
           <div className="hidden md:flex items-center gap-10 text-sm text-[#8a8a8a]">
-
+          <Link href = "/">
             <button className="hover:text-white transition">
               Explore
             </button>
-
+          </Link>
+          <Link href = "/events">
             <button className="hover:text-white transition">
               Events
             </button>
-
+          </Link>
+          <Link href = "/internships">
             <button className="hover:text-white transition">
               Internships
             </button>
-
+          </Link>
+          <Link href = "/workshops">
             <button className="hover:text-white transition">
               Workshops
             </button>
-
+          </Link>
+          <Link href = "/messages">
             <button className = "hover:text-white transition">
               Messages
             </button>
-
+          </Link>
           </div>
          {user ? (
           <Link href="/profile">
@@ -156,17 +160,18 @@ export default function Home() {
 
             <div className="flex flex-wrap gap-4 mt-10">
 
-              <button className="bg-black text-white px-7 py-4 rounded-full font-medium hover:scale-105 transition duration-300">
+              <Link href="/events">
+                <button className="bg-black text-white px-7 py-4 rounded-full font-medium hover:scale-105 transition duration-300">
+                  Explore Events
+                </button>
+              </Link>
 
-                Explore Events
-
-              </button>
-
-              <button className="border border-black px-7 py-4 rounded-full font-medium hover:bg-black hover:text-white transition duration-300">
-
+              <Link
+                href="/upload"
+                className="border border-black px-7 py-4 rounded-full font-medium hover:bg-black hover:text-white transition duration-300 inline-block"
+              >
                 Upload Event
-
-              </button>
+              </Link>
 
             </div>
 
@@ -296,11 +301,11 @@ export default function Home() {
 
               </div>
 
-              <button className="mt-8 bg-[#d9d9d9] text-black px-5 py-3 rounded-full text-sm font-semibold hover:scale-105 transition duration-300">
-
-                Explore
-
-              </button>
+              <Link href="/events">
+                <button className="mt-8 bg-[#d9d9d9] text-black px-5 py-3 rounded-full text-sm font-semibold hover:scale-105 transition duration-300">
+                  Explore
+                </button>
+              </Link>
 
             </div>
 
