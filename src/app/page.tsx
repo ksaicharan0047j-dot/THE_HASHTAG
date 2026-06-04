@@ -55,19 +55,14 @@ export default function Home() {
               Explore
             </button>
           </Link>
-          <Link href = "/events">
-            <button className="hover:text-white transition">
-              Events
-            </button>
-          </Link>
           <Link href = "/internships">
             <button className="hover:text-white transition">
               Internships
             </button>
           </Link>
-          <Link href = "/workshops">
-            <button className="hover:text-white transition">
-              Workshops
+          <Link href = "/gaming">
+            <button className = "hover:text-white transition">
+              Gaming Zone
             </button>
           </Link>
           <Link href = "/messages">
@@ -112,9 +107,8 @@ export default function Home() {
           </div>
           <div className = "flex flex-col p-6 gap-6 text-[#d9d9d9]">
             <Link href = "/">Explore</Link>
-            <Link href = "/events">Events</Link>
             <Link href = "/internships">Internships</Link>
-            <Link href = "/workshops">Workshops</Link>
+            <Link href = "/gaming">Gaming Zone</Link>
             <Link href = "/messages">Messages</Link>
             <Link href = "/profile">Profile</Link>
           </div>
