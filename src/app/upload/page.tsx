@@ -15,7 +15,7 @@ export default function UploadPage() {
   const [registrationLink, setRegistrationLink] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [registrationDeadLine, setRegistrationDeadLine] = useState("");
-
+  const [poster, setPoster] = useState<File | null>(null);
   
     async function publishEvent() {
     const { data: { user },} = await supabase.auth.getUser();
@@ -24,6 +24,24 @@ export default function UploadPage() {
       alert("Please ligin first");
       router.push("/login");
       return;
+    }
+    let posterUrl = "";
+
+    if(poster) {
+      const fileName = `${Date.now()}-${poster.name}`;
+      const {error: uploadError} = await supabase.storage
+        .from("posters")
+        .upload(fileName, poster);
+
+      if(uploadError) {
+        alert(uploadError.message);
+        return;
+      }
+      const { data } = supabase.storage
+        .from("posters")
+        .getPublicUrl(fileName);
+
+      posterUrl = data.publicUrl;
     }
 
     const { error } = await supabase
@@ -40,6 +58,8 @@ export default function UploadPage() {
 
           registration_link : registrationLink,
           contact_number: contactNumber,
+
+          poster_url: posterUrl,
 
           created_by: user?.email,
         },
@@ -134,6 +154,17 @@ export default function UploadPage() {
                   className = "w-full bg-[#1a1a1a] border border-white/10 rounded-2xl p-4"
                 />
               </div>
+              <label className = "block text-sm text-[#8a8a8a] mb-2">Event Poster</label>
+              <input
+                type = "file"
+                accept = "image/*"
+                onChange = {(e) => {
+                  if(e.target.files?.[0]) {
+                    setPoster(e.target.files[0]);
+                  }
+                }}
+                className = "w-full bg-[#1a1a1a] border border-white/10 rounded-2xl p-4"
+              />
               <button
                 onClick = {publishEvent}
                 className = "w-full bg-[#d9d9d9] text-black py-4 rounded-full font-bold hover:scale-[1.2] transtition">Publish Event</button>
