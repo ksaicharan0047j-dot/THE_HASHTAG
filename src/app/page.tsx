@@ -50,7 +50,7 @@ export default function Home() {
           </div>
 
           <div className="hidden md:flex items-center gap-10 text-sm text-[#8a8a8a]">
-          <Link href = "/">
+          <Link href = "/explore">
             <button className="hover:text-white transition">
               Explore
             </button>
@@ -185,39 +185,53 @@ export default function Home() {
 
             <div className = "hidden md:block relative w-full max-w-2xl h-162.5">
                 {/*Internships*/}
+                <Link href = "/internships">
                 <button className = "absolute top-12 left-12 w-60 h-60 rounded-full bg-[#242424] border border-white/10 flex items-center justify-center text-center shadow-[0_0_80px_rgba(255,255,255,0.14)] transition duration-500">
                     <div>
                         <p className = "text-[#8a8a8a] text-sm uppercase tracking-[4px]">Featured</p>
                         <h2 className = "text-3xl font-black mt-3 leading none">Internships</h2>
                     </div>
                 </button>
+                </Link>
                 {/*GAMING*/}
+                <Link href = "/gaming">
                 <button className = "absolute top-56 right-6 w-64 h-64 rounded-full bg-[#2a2a2a] border border-white/10 flex items-center justify-center text-center shadow-[0_0_90px_rgba(255,255,255,0.16)] transition duration-500">
                     <div>
                         <p className = "text-[#8a8a8a] text-sm">Live</p>
                         <h2 className = "text-5xl font-black mt-3 leading-tight">Gaming<br />Arena</h2>
                     </div>
                 </button>
+                </Link>
                 {/*WORKSHOPS*/}
+                <Link href = "/workshops">
                 <button className = "absolute top-80 left-4 bg-[#202020] border border-white/10 rounded-full px-8 py-6 hover:scale-105 hover:bg-[#2a2a2a] transition duration-500">
                     <h3 className = "text-2xl font-bold">Workshops</h3>
                 </button>
+                </Link>
                 {/*COMMUNITIES*/}
+                <Link href = "/explore">
                 <button className = "absolute top-32 right-0 bg-[#202020] border border-white/10 rounded-full px-7 py-5 hover:scale-105 hover:bg-[#2a2a2a] transition duration-500">
                     <h3 className = "text-xl font-semibold">Communities</h3>
                 </button>
+                </Link>
                 {/*HACKATHONS*/}
+                <Link href = "/">
                 <button className = "absolute bottom-10 left-8 bg-[#202020] border border-white/10 rounded-full px-9 py-7 hover:scale-105 hover:bg-[#2a2a2a] transition duration-500">
                     <h3 className = "text-2xl font-bold">Hackathons</h3>
                 </button>
+                </Link>
                 {/*COMPETITIONS*/}
+                <Link href = "/">
                 <button className = "absolute bottom-36 left-44 bg-[#202020] border border-white/10 rounded-full px-7 py-5 hover:scale-105 hover:bg-[#2a2a2a] transition duration-500">
                     <h3 className = "text-xl font-semibold">Competitions</h3>
                 </button>
+                </Link>
                 {/*MEETUPS*/}
+                <Link href = "/">
                 <button className = "absolute bottom-12 right-10 bg-[#202020] border border-white/10 rounded-full px-7 py-5 hover:scale-105 hover:bg-[#2a2a2a] transition duration-500">
                     <h3 className = "text-xl font-semibold">Meetups</h3>
                 </button>
+                </Link>
             </div>
             {/*MOBILE CATEGORY UI*/}
             <div className = "md:hidden w-full flex flex-col gap-5">
@@ -334,13 +348,13 @@ export default function Home() {
                 </p>
 
               </div>
-
+              <Link href = "/internships">
               <button className="mt-10 bg-[#d9d9d9] text-black py-4 rounded-full font-semibold hover:scale-[1.02] transition duration-300 text-lg">
 
                 Explore Internships
 
               </button>
-
+              </Link>
             </div>
 
           </div>
@@ -373,13 +387,13 @@ export default function Home() {
                 <span>Live</span>
 
               </div>
-
+              <Link href = "/gaming">
               <button className="mt-8 bg-[#d9d9d9] text-black px-5 py-3 rounded-full text-sm font-semibold hover:scale-105 transition duration-300">
 
-                Play
+                Enter Arena
 
               </button>
-
+              </Link>
             </div>
 
           </div>

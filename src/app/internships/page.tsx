@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabase";
 
 export default function InternshipsPage() {
+  const router = useRouter();
   const [internships, setInternships] = useState<any[]>([]);
 
   useEffect(() => {
@@ -25,6 +27,7 @@ export default function InternshipsPage() {
   return (
     <main className="min-h-screen bg-[#0f0f0f] text-white px-6 py-32">
       <div className="max-w-6xl mx-auto">
+        <button onClick = {() => router.back()} className = "mb-8 px-4 py-2 rounded-full border border-white/10 bg-[#242424] transition">← Back</button>
         <h1 className="text-5xl font-black mb-4">
           Internships
         </h1>

@@ -83,14 +83,15 @@ export default function UploadPage() {
   return (
     <main className = "min-h-screen bg-[#0f0f0f] text-white px-6 py-32">
       <div className = "max-w-3xl mx-auto">
+        <button onClick = {() => router.back()} className = "mb-8 px-4 py-2 rounded-full border border-white/10 bg-[#1a1a1a] hover:bg-[#242424] transition">← Back</button>
         <h1 className = "text-5xl font-black mb-10">Upload Event</h1>
-        <div className = "sapce-y-8">
+        <div className = "space-y-8">
           <input
             type = "text"
             placeholder = "Event Title"
             value = {title}
             onChange = {(e) => setTitle(e.target.value)}
-            className = "w-full bf-[#1a1a1a] border border-white/10 rounded-2xl p-4"
+            className = "w-full bg-[#1a1a1a] border border-white/10 rounded-2xl p-4"
             />
 
             <textarea
