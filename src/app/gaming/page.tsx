@@ -9,6 +9,9 @@ import {
     Circle,
     Zap,
 } from "lucide-react";
+import TicTacToe from "../../components/TicTacToe";
+
+
 
 export default function GamingPage() {
     const router = useRouter();
@@ -93,13 +96,7 @@ export default function GamingPage() {
                             </div>
                         )}
                         {activeTab === "tictactoe" && (
-                            <div>
-                                <h2 className = "text-3xl font-bold mb-4">
-
-                                    Tic Tac Toe
-                                </h2>
-                                <button className = "mt-6 bg-white text-black px-6 py-3 rounded-full font-semibold">Ply Tic Tac Toe</button>
-                            </div>
+                            <TicTacToe />
                         )}
                         {activeTab === "snake" && (
                             <div>
