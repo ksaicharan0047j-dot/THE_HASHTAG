@@ -19,7 +19,7 @@ export default function Home() {
           .from("authorizers")
           .select("*")
           .eq("email", data.user.email)
-          .single();
+          .maybeSingle();
 
           if(authorizer){
             setIsAuthorizer(true);
@@ -106,7 +106,7 @@ export default function Home() {
             <button onClick = {() => setMenuOpen(false)} className = "text-xl">X</button>
           </div>
           <div className = "flex flex-col p-6 gap-6 text-[#d9d9d9]">
-            <Link href = "/">Explore</Link>
+            <Link href = "/explore">Explore</Link>
             <Link href = "/internships">Internships</Link>
             <Link href = "/gaming">Gaming Zone</Link>
             <Link href = "/messages">Messages</Link>
@@ -235,13 +235,13 @@ export default function Home() {
             </div>
             {/*MOBILE CATEGORY UI*/}
             <div className = "md:hidden w-full flex flex-col gap-5">
-              <button className = "w-full h-28 rounded-full bg-[#242424] border border-white/10 text-3xl font-black shadow-[0_0_40px_rgba(255,255,255,0.08)]">Internships</button>
-              <button className = "w-full h-28 rounded-full bg-[#242424] border border-white/10 text-3xl font-black shadow-[0_0_50px_rgba(255,255,255,0.12)]"> Gaming</button>
-              <button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Workshops</button>
-              <button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Hackathons</button>
-              <button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Competitions</button>
-              <button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Communities</button>
-              <button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Meetups</button> 
+              <Link href =  "/internships"><button className = "w-full h-28 rounded-full bg-[#242424] border border-white/10 text-3xl font-black shadow-[0_0_40px_rgba(255,255,255,0.08)]">Internships</button></Link>
+              <Link href = "/gaming"><button className = "w-full h-28 rounded-full bg-[#242424] border border-white/10 text-3xl font-black shadow-[0_0_50px_rgba(255,255,255,0.12)]"> Gaming</button></Link>
+              <Link href = "/workshops"><button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Workshops</button></Link>
+              <Link href = "/hackathons"><button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Hackathons</button></Link>
+              <Link href = "/competitions"><button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Competitions</button></Link>
+              <Link href = "explore"><button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Communities</button></Link>
+              <Link href = "meetups"><button className = "w-full h-20 rounded-full bg-[#202020] border border-white/10 text-xl font-semibold">Meetups</button> </Link>
             </div>
 
           </div>
