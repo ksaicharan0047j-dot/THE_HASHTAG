@@ -8,6 +8,7 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);  
   const [isAuthorizer, setIsAuthorizer] = useState(false);
 
+
   useEffect(() => {
       async function loadUser() {
         const { data } = await supabase.auth.getUser();
@@ -215,19 +216,19 @@ export default function Home() {
                 </button>
                 </Link>
                 {/*HACKATHONS*/}
-                <Link href = "/">
+                <Link href = "/hackahons">
                 <button className = "absolute bottom-10 left-8 bg-[#202020] border border-white/10 rounded-full px-9 py-7 hover:scale-105 hover:bg-[#2a2a2a] transition duration-500">
                     <h3 className = "text-2xl font-bold">Hackathons</h3>
                 </button>
                 </Link>
                 {/*COMPETITIONS*/}
-                <Link href = "/">
+                <Link href = "/competitions">
                 <button className = "absolute bottom-36 left-44 bg-[#202020] border border-white/10 rounded-full px-7 py-5 hover:scale-105 hover:bg-[#2a2a2a] transition duration-500">
                     <h3 className = "text-xl font-semibold">Competitions</h3>
                 </button>
                 </Link>
                 {/*MEETUPS*/}
-                <Link href = "/">
+                <Link href = "/meetups">
                 <button className = "absolute bottom-12 right-10 bg-[#202020] border border-white/10 rounded-full px-7 py-5 hover:scale-105 hover:bg-[#2a2a2a] transition duration-500">
                     <h3 className = "text-xl font-semibold">Meetups</h3>
                 </button>

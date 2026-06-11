@@ -56,7 +56,9 @@ export default function UploadPage() {
           event_date: eventDate,
           registration_deadline: registrationDeadLine,
 
-          registration_link : registrationLink,
+          registration_link : registrationLink.startsWith("http")
+            ? registrationLink
+            : `https://${registrationLink}`,
           contact_number: contactNumber,
 
           poster_url: posterUrl,

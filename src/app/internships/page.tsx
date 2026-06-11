@@ -53,7 +53,7 @@ export default function InternshipsPage() {
                   </h2>
 
                   <p className="text-[#8a8a8a] mt-2">
-                    📍 {item.location}
+                     {item.location}
                   </p>
 
                   <p className="mt-4">
@@ -61,31 +61,40 @@ export default function InternshipsPage() {
                   </p>
 
                   <p className="mt-4 text-sm text-[#8a8a8a]">
-                    📅 Event Date: {item.event_date}
+                     Event Date: {item.event_date}
                   </p>
 
                   {item.registration_deadline && (
                     <p className="mt-2 text-sm text-yellow-400">
-                      ⏰ Deadline: {item.registration_deadline}
+                       Deadline: {item.registration_deadline}
                     </p>
                   )}
 
                   {item.contact_number && (
                     <p className="mt-2 text-sm text-[#8a8a8a]">
-                      📞 {item.contact_number}
+                       {item.contact_number}
                     </p>
                   )}
-
-                  {item.registration_link && (
-                    <a
-                      href={item.registration_link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block mt-5 bg-[#d9d9d9] text-black px-5 py-3 rounded-full font-semibold hover:scale-105 transition"
-                    >
-                      Apply
-                    </a>
-                  )}
+                  <p className="text-red-400">
+                    {item.registration_link}
+                  </p>
+                 {item.registration_link ? (
+                  <a
+                    href={item.registration_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-5 bg-[#d9d9d9] text-black px-5 py-3 rounded-full font-semibold hover:scale-105 transition"
+                  >
+                    Register
+                  </a>
+                ) : (
+                  <button
+                    disabled
+                    className="inline-block mt-5 bg-[#444] text-[#999] px-5 py-3 rounded-full font-semibold cursor-not-allowed"
+                  >
+                    Registration Closed
+                  </button>
+                )}
                 </div>
 
                 {item.poster_url && (
@@ -97,7 +106,7 @@ export default function InternshipsPage() {
                 )}
               </div>
             ))
-          )}
+          )} 
         </div>
       </div>
     </main>

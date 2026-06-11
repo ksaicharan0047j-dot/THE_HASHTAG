@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { supabase } from "../../lib/supabase";
 import {
     Gamepad2,
     Trophy,
@@ -17,6 +18,7 @@ export default function GamingPage() {
     const router = useRouter();
 
     const [activeTab, setActiveTab] = useState("events");
+    const [gamingEvents, setGamingEvents] = useState<any[]>([]);
 
     const tabs = [{
         id: "events",
@@ -45,6 +47,22 @@ export default function GamingPage() {
     },
     ];
 
+    useEffect(() => {
+        async function loadGamingEvents() {
+            const {data, error } = await supabase
+                .from("events")
+                .select("*")
+                .eq("category", "Gaming")
+                .order("created_at", { ascending: false});
+            
+                if(!error && data) {
+                    setGamingEvents(data);
+                }
+        }
+        loadGamingEvents();
+
+    }, []);
+
     return (
         <main className = "min-h-screen bg-[#0f0f0f] text-white px-6 py-32">
             <div className = "max-w-6xl mx-auto">
@@ -72,10 +90,34 @@ export default function GamingPage() {
                     <div className = "mt-12 bg-[#1a1a1a] border border-white/10 rounnded-3xl p-8">
                         {activeTab === "events" && (
                             <div>
-                                <h2 className = "text-3xl font-bold mb-4">
-                                    Gaming Events
-                                </h2>
-                                <p className = "text-[#8a8a8a]">Gaming tournaments and esports events will apper here.</p>
+                                <h2 className = "text-3xl font-bold mb-6">Gaming Events</h2>
+                                <div className = "grid gap-6">
+                                    {gamingEvents.length === 0 ? (
+                                        <p className = "text-[#8a8a8a]">No gaming events available.</p>
+                                    ) : (
+                                        gamingEvents.map((item) => (
+                                            <div key = {item.id} className = "bg-[#242424] border border-white/10 rounded-3xl p-6 flex justify-between gap-6">
+                                                <div className = "flex-1">
+                                                    <h2 className = "text-2xl font-bold">{item.title}</h2>
+                                                    <p className = "text-[#8a8a8a] mt-2">{item.location}</p>
+                                                    <p className = "mt-4 text-sm text-[#8a8a8a]">Event Date: {item.evemt_date}</p>
+                                                    {item.registration_link && (
+                                                        <a href = {item.registration_link.startsWith("http")
+                                                            ? item.registration_link
+                                                            : `https://${item.registration_link}`
+                                                        }
+                                                        target = "_blank"
+                                                        rel = "noopener noreferrer"
+                                                        className = "inline-block mt-5 bg-white text-black px-5 py-3 rounded-full font-semibold">Register</a>
+                                                    )}
+                                                </div>
+                                                {item.poster_url && (
+                                                    <img src = {item.poster_url} alt = {item.title} className = "w-48 h-48object-cover rounded-2xl"/>
+                                                )}
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
                             </div>
                         )}
                         {activeTab === "pong" && (
