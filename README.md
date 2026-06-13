@@ -119,7 +119,7 @@ Installation
 
 Clone the repository:
 
-git clone https://github.com/your-username/the-hashtag.git
+git clone https://github.com/ksaicharan0047j-dot/THE_HASHTAG
 
 Move into the project:
 
@@ -143,8 +143,8 @@ Environment Variables
 
 Create a ".env.local" file:
 
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_SUPABASE_URL=sb_publishable_Y7a1nM7tPy2ygwPK5pY__g_QtIzsySt
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml6aHZhZ3BmYWF4ZHphbXB0cXltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3NzA0MzgsImV4cCI6MjA5NTM0NjQzOH0.6Q_VB0mMcLaQ1AyU3DiOwkXJVf7HO9hKEpVC5ANQx94
 
 ---
 
