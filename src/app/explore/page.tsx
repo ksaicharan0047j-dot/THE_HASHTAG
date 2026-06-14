@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { supabase } from "../../lib/supabase";
 
+
 export default function ExplorePage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("search");
@@ -18,6 +19,7 @@ export default function ExplorePage() {
   const [postType, setPostType] = useState("default");
   const [media, setMedia] = useState<File | null>(null);
   const [posts, setPosts] = useState<any[]>([]);
+  const [likedPosts, setLinkedPosts] = useState<string[]>([]);
 
   const tabs = [
     {
@@ -47,8 +49,7 @@ export default function ExplorePage() {
     },
   ];
 
-  useEffect(() => {
-    async function loadPosts() {
+  async function loadPosts() {
       const { data, error } = await supabase
         .from("feed_posts")
         .select("*")
@@ -58,6 +59,8 @@ export default function ExplorePage() {
         setPosts(data);
       }
     }
+
+  useEffect(() => {
     loadPosts()
   }, []);
 
@@ -114,6 +117,57 @@ export default function ExplorePage() {
     setCaption("");
     setMedia(null);
     setPostType("default");
+  }
+
+  async function toggleLike(postId: string, currentLikes: number) {
+    const { data: authData } = await supabase.auth.getUser();
+
+    if (!authData.user) {
+      alert("Please login first");
+      return;
+    }
+
+    const userEmail = authData.user.email;
+
+    const { data: existingLike } = await supabase
+      .from("post_likes")
+      .select("*")
+      .eq("post_id", postId)
+      .eq("user_email", userEmail)
+      .maybeSingle();
+
+    if (existingLike) {
+      await supabase
+        .from("post_likes")
+        .delete()
+        .eq("post_id", postId)
+        .eq("user_email", userEmail);
+
+      await supabase
+        .from("feed_posts")
+        .update({
+          likes: Math.max(currentLikes - 1, 0),
+        })
+        .eq("id", postId);
+    } else {
+      await supabase
+        .from("post_likes")
+        .insert([
+          {
+            post_id: postId,
+            user_email: userEmail,
+          },
+        ]);
+
+      await supabase
+        .from("feed_posts")
+        .update({
+          likes: currentLikes + 1,
+        })
+        .eq("id", postId);
+    }
+
+    loadPosts();
   }
 
   return (
@@ -200,6 +254,9 @@ export default function ExplorePage() {
                           <p className = "font-semibold">{post.profile_name || post.user_email}</p>
                           <p className = "text-sm text-[#8a8a8a] mt-1">{new Date(post.created_at).toLocaleDateString()}</p>
                           <p className = "mt-4">{post.caption}</p>
+                          <div className = "mt-4">
+                            <button onClick = {() => toggleLike(post.id, post.likes || 0)} className = "text-white hover:scale-110 transition">❤️{post.likes|| 0}</button>
+                            </div>
                           </div>
                           {post.media_type === "image" ? (
                             <img src = {post.image_url} alt = "" className = "w-full max-h-150 object-cover"/>
